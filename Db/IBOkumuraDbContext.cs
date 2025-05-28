@@ -6,7 +6,10 @@ namespace Uniface.IBOkumura.Core
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost; User ID=sa; Password=Uniface01; Initial Catalog=IBOKUMURA; TrustServerCertificate=true;");
+            DotNetEnv.Env.TraversePath().Load();
+            var connStr = DotNetEnv.Env.GetString("DB_CONNECTION_STRING");
+
+            optionsBuilder.UseSqlServer(connStr);
         }
     }
 }
